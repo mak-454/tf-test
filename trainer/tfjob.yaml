@@ -37,7 +37,7 @@ spec:
               path: /tmp/tf-results
             
         restartPolicy: OnFailure
-  - replicas: 1
+  - replicas: 1 #Define how many workers you need
     tfReplicaType: WORKER
     template:
       spec:
@@ -70,7 +70,7 @@ spec:
               path: /tmp/tf-results
 
         restartPolicy: OnFailure
-  - replicas: 1
+  - replicas: 1 #Define how many parameter servers you need
     tfReplicaType: PS
     template:
       spec:
