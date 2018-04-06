@@ -1,0 +1,79 @@
+apiVersion: "kubeflow.org/v1alpha1"
+kind: "TFJob"
+metadata:
+  name: tfjob-census
+  namespace: kubeflow
+spec:
+  replicaSpecs:
+  - replicas: 1
+    tfReplicaType: MASTER
+    template:
+      spec:
+        containers:
+          - image: test/tf-job:v1
+            name: tensorflow
+            imagePullPolicy: IfNotPresent
+            env:
+            - name: TRAIN_FILE
+              value: "/root/tf-trainer/trainig_data/adult.data.csv"
+            - name: EVAL_FILE
+              value: "/root/tf-trainer/trainig_data/adult.test.csv"
+            - name: RESULTS_DIR
+              value: "/root/tf-trainer/results"
+            - name: TRAIN_STEPS
+              value: "10000"
+            - name: EVAL_STEPS
+              value: "100"
+            - name: NUM_EPOCHS
+              value: "10"
+            
+        restartPolicy: OnFailure
+  - replicas: 1
+    tfReplicaType: WORKER
+    template:
+      spec:
+        containers:
+          - image: test/tf-job:v1
+            name: tensorflow
+            imagePullPolicy: IfNotPresent
+            env:
+            - name: TRAIN_FILE
+              value: "/root/tf-trainer/trainig_data/adult.data.csv"
+            - name: EVAL_FILE
+              value: "/root/tf-trainer/trainig_data/adult.test.csv"
+            - name: RESULTS_DIR
+              value: "/root/tf-trainer/results"
+            - name: TRAIN_STEPS
+              value: "10000"
+            - name: EVAL_STEPS
+              value: "100"
+            - name: NUM_EPOCHS
+              value: "10"
+        restartPolicy: OnFailure
+  - replicas: 1
+    tfReplicaType: PS
+    template:
+      spec:
+        volumes:
+        containers:
+          - image: test/tf-job:v1
+            name: tensorflow
+            imagePullPolicy: IfNotPresent
+            env:
+            - name: TRAIN_FILE
+              value: "/root/tf-trainer/trainig_data/adult.data.csv"
+            - name: EVAL_FILE
+              value: "/root/tf-trainer/trainig_data/adult.test.csv"
+            - name: RESULTS_DIR
+              value: "/root/tf-trainer/results"
+            - name: TRAIN_STEPS
+              value: "10000"
+            - name: EVAL_STEPS
+              value: "100"
+            - name: NUM_EPOCHS
+              value: "10"
+        restartPolicy: OnFailure
+  terminationPolicy:
+    chief:
+      replicaIndex: 0
+      replicaName: MASTER
