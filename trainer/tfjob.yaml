@@ -13,19 +13,28 @@ spec:
           - image: test/tf-job:v1
             name: tensorflow
             imagePullPolicy: IfNotPresent
+
+            volumeMounts:
+            - name: tf-results
+              mountPath: /tmp/tf-results
+
             env:
             - name: TRAIN_FILE
               value: "/root/tf-trainer/trainig_data/adult.data.csv"
             - name: EVAL_FILE
               value: "/root/tf-trainer/trainig_data/adult.test.csv"
             - name: RESULTS_DIR
-              value: "/root/tf-trainer/results"
+              value: "/tmp/tf-results"
             - name: TRAIN_STEPS
               value: "10000"
             - name: EVAL_STEPS
               value: "100"
             - name: NUM_EPOCHS
               value: "10"
+        volumes:
+        - name: tf-results
+          hostPath:
+              path: /tmp/tf-results
             
         restartPolicy: OnFailure
   - replicas: 1
@@ -36,19 +45,30 @@ spec:
           - image: test/tf-job:v1
             name: tensorflow
             imagePullPolicy: IfNotPresent
+
+            volumeMounts:
+            - name: tf-results
+              mountPath: /tmp/tf-results
+
             env:
             - name: TRAIN_FILE
               value: "/root/tf-trainer/trainig_data/adult.data.csv"
             - name: EVAL_FILE
               value: "/root/tf-trainer/trainig_data/adult.test.csv"
             - name: RESULTS_DIR
-              value: "/root/tf-trainer/results"
+              value: "/tmp/tf-results"
             - name: TRAIN_STEPS
               value: "10000"
             - name: EVAL_STEPS
               value: "100"
             - name: NUM_EPOCHS
               value: "10"
+
+        volumes:
+        - name: tf-results
+          hostPath:
+              path: /tmp/tf-results
+
         restartPolicy: OnFailure
   - replicas: 1
     tfReplicaType: PS
@@ -59,19 +79,30 @@ spec:
           - image: test/tf-job:v1
             name: tensorflow
             imagePullPolicy: IfNotPresent
+
+            volumeMounts:
+            - name: tf-results
+              mountPath: /tmp/tf-results
+
             env:
             - name: TRAIN_FILE
               value: "/root/tf-trainer/trainig_data/adult.data.csv"
             - name: EVAL_FILE
               value: "/root/tf-trainer/trainig_data/adult.test.csv"
             - name: RESULTS_DIR
-              value: "/root/tf-trainer/results"
+              value: "/tmp/tf-results"
             - name: TRAIN_STEPS
               value: "10000"
             - name: EVAL_STEPS
               value: "100"
             - name: NUM_EPOCHS
               value: "10"
+
+        volumes:
+        - name: tf-results
+          hostPath:
+              path: /tmp/tf-results
+
         restartPolicy: OnFailure
   terminationPolicy:
     chief:
