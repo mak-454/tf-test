@@ -1,6 +1,6 @@
 # tf-test
 
-[![GitHub Logo](logo-old.png)](www.oneconvergence.com)
+[![GitHub Logo](logo-old.png)](http://oneconvergence.com)
 
 http://github.com - automatic!
 [GitHub](http://github.com)
