@@ -3,6 +3,9 @@
 ![GitHub Logo](/images/logo.png)
 Format: ![oneconvergence](www.oneconvergence.com)
 
+http://github.com - automatic!
+[GitHub](http://github.com)
+
 Pre-requisites :->
    . kubeflow installed
    . tf-operator running in 'kubeflow' namespace
